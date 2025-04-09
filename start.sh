@@ -1,10 +1,6 @@
 #!/bin/bash
+# Montar Google Drive
+rclone mount gdrive:/ /app/books --allow-other --vfs-cache-mode writes &
 
-mkdir -p /books
-rclone mount gdrive:calibre /books --allow-other --vfs-cache-mode writes &
-ls /mnt/gdrive/MiBiblioteca/metadata.db
-# Esperar a que monte
-sleep 10
-
-# Lanzar calibre-web
-exec /init
+# Ejecutar Calibre Web
+python3 cps.py
