@@ -1,13 +1,24 @@
-FROM linuxserver/calibre-web
+FROM python:3.8-slim
 
-# Instala rclone
-RUN apt update && apt install -y rclone fuse && apt clean
+# Instalar dependencias necesarias
+RUN apt-get update && \
+    apt-get install -y \
+    libxml2 libxslt1.1 libxslt1-dev \
+    libxml2-dev libjpeg-dev zlib1g-dev \
+    git curl && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copia la configuración de rclone
-COPY rclone.conf /config/rclone.conf
+# Clonar Calibre Web
+RUN git clone https://github.com/janeczku/calibre-web.git /app
 
-# Montar Google Drive al iniciar
-COPY start.sh /config/start.sh
-RUN chmod +x /config/start.sh
+# Establecer el directorio de trabajo
+WORKDIR /app
 
-ENTRYPOINT ["/config/start.sh"]
+# Instalar las dependencias de Python
+RUN pip install -r requirements.txt
+
+# Exponer el puerto que utiliza Calibre Web
+EXPOSE 8083
+
+# Ejecutar la aplicación
+CMD ["python3", "cps.py"]
