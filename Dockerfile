@@ -23,11 +23,16 @@ WORKDIR /app
 # Instalar las dependencias de Python
 RUN pip install -r requirements.txt
 
+# Copiar el script de inicio
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 # Exponer el puerto que utiliza Calibre Web
 EXPOSE 8083
 
-# Crear un directorio para almacenar la configuración de rclone
-RUN mkdir -p /config/rclone
+# Crear un directorio para almacenar los libros (Google Drive se montará aquí)
+RUN mkdir -p /app/books
 
-# Ejecutar la aplicación
-CMD ["python3", "cps.py"]
+# Ejecutar el script de inicio
+CMD ["/start.sh"]
+
