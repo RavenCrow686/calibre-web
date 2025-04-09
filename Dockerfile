@@ -14,6 +14,9 @@ RUN curl https://rclone.org/install.sh | bash
 # Clonar Calibre Web
 RUN git clone https://github.com/janeczku/calibre-web.git /app
 
+# Copiar el archivo de configuración rclone.conf al contenedor
+COPY config/rclone/rclone.conf /config/rclone/rclone.conf
+
 # Establecer el directorio de trabajo
 WORKDIR /app
 
