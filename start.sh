@@ -1,6 +1,7 @@
 #!/bin/bash
-# Montar Google Drive
-rclone mount gdrive:/ /app/books --allow-other --vfs-cache-mode writes &
+echo "Sincronizando libros desde Google Drive..."
+rclone sync gdrive:/books /books --config /app/config/rclone.conf
+echo "Sincronización completada."
 
-# Ejecutar Calibre Web
-python3 cps.py
+# Inicia Calibre-Web
+/usr/bin/calibre-web
