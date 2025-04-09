@@ -11,6 +11,7 @@ ls -l /opt/calibre-web/
 ls -l /app/calibre-web/
 
 # Intenta iniciar Calibre-Web desde una posible ubicación
-/opt/calibre-web/calibre-web &
+#/opt/calibre-web/calibre-web &
 # Si la anterior falla, intenta esta:
 # /app/calibre-web/calibre-web &
+python3 /app/config/cps.py &
